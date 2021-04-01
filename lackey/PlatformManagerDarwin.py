@@ -19,6 +19,7 @@ from PIL import Image, ImageTk
 
 from .SettingsDebug import Debug
 from .InputEmulation import Keyboard
+import cv2
 
 # Python 3 compatibility
 try:
@@ -207,7 +208,8 @@ class PlatformManagerDarwin(object):
         y1 = min(max(min_y, y), min_y+screen_height) - min_y
         x2 = min(max(min_x, x+w), min_x+screen_width) - min_x
         y2 = min(max(min_y, y+h), min_y+screen_height) - min_y
-        return numpy.array(img.crop((x1, y1, x2, y2)))
+        img = cv2.cvtColor(numpy.array(img.crop((x1, y1, x2, y2))), cv2.COLOR_BGR2RGB)
+        return img
     def getScreenBounds(self, screenId):
         """ Returns the screen size of the specified monitor (0 being the main monitor). """
         screen_details = self.getScreenDetails()
