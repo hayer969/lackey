@@ -1844,7 +1844,7 @@ class Region(object):
             response = _findFailedPrompt(pattern)
 
         if response == "ABORT":
-            raise FindFailed(event)
+            raise FindFailed(event, reg = self)
         elif response == "SKIP":
             return False
         elif response == "RETRY":
